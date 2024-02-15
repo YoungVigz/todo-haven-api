@@ -1,7 +1,8 @@
 import { Router} from "express";
-import { createTodo, findAllTodos } from "../controllers/todo.controller";
+import { createTodo, findAllTodos, findUserTodos } from "../controllers/todo.controller";
 
 export const todoRouter = Router()
 
-todoRouter.get("/", findAllTodos)
+todoRouter.get("/all", findAllTodos)
 todoRouter.post("/", createTodo)
+todoRouter.get("/", findUserTodos)

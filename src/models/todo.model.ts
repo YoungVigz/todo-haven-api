@@ -10,6 +10,10 @@ const TodoSchema = new mongoose.Schema({
         required: true,
         minLength: 5,
         maxLength: 50
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 })
 
