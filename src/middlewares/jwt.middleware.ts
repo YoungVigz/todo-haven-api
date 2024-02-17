@@ -3,7 +3,7 @@ import JWT from 'jsonwebtoken'
 
 export const jwtVerify = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = JWT.verify(req.body.token, process.env.JWT_SECRET || " ")
+        const user = JWT.verify(req.params.token, process.env.JWT_SECRET || " ")
         req.body.user = user
         
         next()
