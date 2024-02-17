@@ -3,18 +3,22 @@ import { connectToDatabase } from "./services/database.service"
 import { mainRouter } from './routes/main.router'
 import cors from 'cors'
 
-const app = express()
+async function makeApp() {
+    const app = express()
 
-app.use(express.json())
-app.use(cors())
+    app.use(express.json())
+    app.use(cors())
+    
+    await connectToDatabase()
+        .then(() => {
+            app.use(mainRouter)
+        })
+        .catch((error: Error) => {
+            console.error("Database connection failed", error)
+            process.exit();
+        })
+    
+    return app
+}
 
-connectToDatabase()
-    .then(() => {
-        app.use(mainRouter)
-    })
-    .catch((error: Error) => {
-        console.error("Database connection failed", error)
-        process.exit();
-    })
-
-export default app
+export default makeApp

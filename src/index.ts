@@ -1,7 +1,8 @@
-import app from './app'
+import makeApp from './app'
 
 const port = process.env.PORT || 4000
 
-app.listen(port, () => {
+makeApp().then(app => app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`)
-})
+})).catch(e => console.log(e))
+

@@ -10,14 +10,30 @@ export const createUser = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
 
-    const user = await User.findOne({email: req.body.email}).then(user => user).catch(e => e)
-    const match = await compare(req.body.password, user.password)
+        if (!email || !password) {
+            return res.status(400).json({ error: "Email and password are required." });
+        }
 
-    if(match) {
-        const token = JWT.sign({ user }, process.env.JWT_SECRET || " ", { expiresIn: "1h" })
-        res.send({token})
-    } else {
-        res.send("invalid cred")
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(401).json({ error: "Bad credentials." });
+        }
+
+        const match = await compare(password, user.password);
+
+        if (match) {
+            const token = JWT.sign({ user_id: user._id }, process.env.JWT_SECRET || " ", { expiresIn: "1h" });
+            return res.status(201).json({ token });
+        } 
+        
+        return res.status(401).json({ error: "Bad credentials." });
+    
+    } catch (error) {
+        console.error("Error during login: ", error);
+        return res.status(500).json({ error: "Internal Server Error." });
     }
 }

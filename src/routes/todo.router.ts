@@ -4,16 +4,7 @@ import { jwtVerify } from "../middlewares/jwt.middleware";
 
 export const todoRouter = Router()
 
-/**
- * TODO:
- * 
- * GET /todo
- * POST /todo
- * PUT /todo/:id
- * DELETE /todo/:id
- * **/
-
-
-todoRouter.get("/all", findAllTodos)
-todoRouter.post("/", jwtVerify, createTodo)
-todoRouter.get("/:token", jwtVerify, findUserTodos)
+todoRouter.get("/", (req, res) => res.sendStatus(200))
+todoRouter.post("/", (req, res) => res.sendStatus(200))
+todoRouter.put("/:id", (req, res) => res.sendStatus(200))
+todoRouter.delete("/:id", (req, res) => res.sendStatus(200))
