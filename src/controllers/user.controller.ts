@@ -1,12 +1,17 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import User from '../models/user.model'
 import { compare } from "bcrypt"
 import JWT from "jsonwebtoken"
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+    const {email, password, login} = req.body;
+
+    if(!email || !password || !login)
+        return res.status(400).json({ error: "Email password and login are required." });
+    
     await User.create(req.body).then((user) => {
-        res.send(user)
-    }).catch(err => res.send(err))
+        next()
+    }).catch(error => res.status(401).json({error}))
 }
 
 export const login = async (req: Request, res: Response) => {
