@@ -42,3 +42,14 @@ export const login = async (req: Request, res: Response) => {
         return res.status(500).json({ error: "Internal Server Error." });
     }
 }
+
+export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+    const { password } = req.body
+
+    try {
+        User.updateOne({_id: req.body.user.user._id}, {password: password})
+        next()
+    } catch (error) {
+        res.status(400).send({error: "Couldn't update user"})
+    }
+}

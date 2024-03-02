@@ -62,7 +62,14 @@ describe("Tests that covers users endpoints", () => {
         })
     })
 
-    describe("PUT /user/update", () => {
-        
-    })
+    /*describe("PUT /user/update", () => {
+        it("By passing new valid email should return 201 with new JWT token", async () => {
+            const res = await request.put("/user/update").send({
+                email: "newTest@test.com"
+            })
+
+            expect(res.status).toBe(201)
+            expect(res.body.token).toBeDefined()
+        })
+    })*/
 })
