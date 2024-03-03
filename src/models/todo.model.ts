@@ -1,17 +1,21 @@
 import mongoose from "mongoose"
 
 export interface TodoInput {
-    title: string
+    content: string
 }
 
 const TodoSchema = new mongoose.Schema({
-    title: {
+    content: {
         type: String,
         required: true,
         minLength: 5,
         maxLength: 50
     },
-    user_id: {
+    project_id: {
+        type: String,
+        required: true
+    },
+    list_id: {
         type: String,
         required: true
     }

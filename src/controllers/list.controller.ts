@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import List from "../models/list.model";
 
-
 export const getProjectLists = async (req: Request, res: Response) => {
     await List.find({project_id: req.body.project_id}).then(l => {
         res.status(200).send(l)
