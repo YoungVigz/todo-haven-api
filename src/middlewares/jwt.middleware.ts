@@ -9,7 +9,7 @@ export const jwtVerify = (req: Request, res: Response, next: NextFunction) => {
             let token = bearer.split(' ')[1]
             const user = JWT.verify(token, process.env.JWT_SECRET || " ")
             
-            req.body.user = typeof user !== 'string' ? user._id : res.status(500).json({error: "Something went wrong"})
+            req.body.user = typeof user !== 'string' ? user.user_id : res.status(500).json({error: "Something went wrong"})
             next()
         } catch (error) {
             res.status(401).json({error: "Permission denied!"})

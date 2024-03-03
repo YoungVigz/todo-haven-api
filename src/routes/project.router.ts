@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { findUserProjects } from "../controllers/project.controller";
+import { findUserProjects, createProject, updateProjectName, deleteProject } from "../controllers/project.controller";
+import { projectAuth } from "../middlewares/project.middleware";
 
 export const projectRouter = Router()
 
 projectRouter.get("/", findUserProjects)
-projectRouter.post("/", (req, res) => res.sendStatus(200))
-projectRouter.put("/:id", (req, res) => res.sendStatus(200))
-projectRouter.delete("/:id", (req, res) => res.sendStatus(200))
+projectRouter.post("/", createProject)
+projectRouter.put("/:id", projectAuth, updateProjectName)
+projectRouter.delete("/:id", projectAuth, deleteProject)
