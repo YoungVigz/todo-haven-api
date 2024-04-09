@@ -12,4 +12,3 @@ connectToDatabase().then(() => {
         process.exit();
 })
 
-

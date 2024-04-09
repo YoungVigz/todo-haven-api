@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
-
 export async function connectToDatabase () {
     dotenv.config();
 

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import Project from "../models/project.model"
 
 export const projectAuth = async (req: Request, res: Response, next: NextFunction) => {
-    await Project.findOne({ _id: req.params.id }).then(p => {
+    await Project.findOne({ _id: req.body.id }).then(p => {
         if(p?.user_id != req.body.user) {
             return res.status(401).send({error: "Perm denied"})
         }
@@ -11,7 +11,7 @@ export const projectAuth = async (req: Request, res: Response, next: NextFunctio
 }
 
 export const authCheck = async (req: Request, res: Response, next: NextFunction) => {
-    await Project.findOne({ _id: req.body.project_id }).then(p => {
+    await Project.findOne({ _id: req.query.project_id }).then(p => {
         if(p?.user_id != req.body.user) {
             return res.status(401).send({error: "Perm denied"})
         }
