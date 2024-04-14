@@ -1,12 +1,14 @@
-import express, { Request, Response } from 'express';
+import app from './app'
+import { connectToDatabase } from "./services/database.service"
 
-const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello, TypeScript Express!');
-});
+connectToDatabase().then(() => {
+    app.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}`)
+    })    
+}).catch((error: Error) => {
+        console.error("Database connection failed", error)
+        process.exit();
+})
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
