@@ -26,7 +26,7 @@ export const updateProjectName = async (req: Request, res: Response) => {
 
 export const deleteProject = async (req: Request, res: Response) => {
     // TODO: before deleting project need to clear all todos connected to it.
-
+    
     await Project.deleteOne({ _id: req.params.id }).then(p => {
         res.status(201).json({msg: "Deleted succesfuly"})
     }).catch(err => res.status(401).send(err))

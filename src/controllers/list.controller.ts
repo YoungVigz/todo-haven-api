@@ -19,5 +19,7 @@ export const updateListName = async(req: Request, res: Response) => {
 }
 
 export const deleteList = async(req: Request, res: Response) => {
-    res.status(200).json({msg: "TODO"})
+    await List.deleteOne({ _id: req.params.id }).then(p => {
+        res.status(201).json({msg: "Deleted succesfuly"})
+    }).catch(err => res.status(401).send(err))
 }

@@ -32,7 +32,7 @@ export const login = async (req: Request, res: Response) => {
 
         if (match) {
             const token = JWT.sign({ user_id: user._id }, process.env.JWT_SECRET || " ", { expiresIn: "1h" });
-            return res.status(201).json({ token });
+            return res.status(201).json({ token, login: user.login });
         } 
         
         return res.status(401).json({ error: "Bad credentials." });
